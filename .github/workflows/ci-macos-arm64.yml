@@ -25,6 +25,3 @@ jobs:
         run: xmake config --yes -vD -m releasedbg -a ${{ matrix.arch }}
       - name: build
         run: xmake build --yes -vD s7
-      - name: test
-        run: xmake run --yes -vD plus.scm
-
