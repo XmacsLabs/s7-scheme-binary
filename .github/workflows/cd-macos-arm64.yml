@@ -21,7 +21,7 @@ jobs:
         with:
           fetch-depth: 1
       - name: config
-        run: xmake config --yes -vD
+        run: xmake config --yes -vD -a ${{ matrix.arch }}
       - name: build
         run: xmake build --yes -vD s7
       - name: install
