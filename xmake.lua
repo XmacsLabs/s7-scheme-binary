@@ -22,3 +22,13 @@ target("s7") do
   add_packages ("s7")
   add_files("repl.c")
 end
+
+target("plus.scm") do
+  if is_plat("linux", "macosx") then
+    on_run(function (target)
+      cmd = "$(buildir)/$(plat)/$(arch)/$(mode)/s7 " .. "tests/plus.scm"
+      print("> " .. cmd)
+      os.exec(cmd)
+    end)
+  end
+end
