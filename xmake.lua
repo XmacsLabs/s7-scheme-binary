@@ -29,6 +29,9 @@ target("s7") do
     else
       print("Unsupported platform!!!")
     end
+    if is_plat("macosx") and is_arch("arm64") then
+      os.exec("codesign  --force --sign  - $(buildir)/s7_macosx_arm64")
+    end
   end)
 end
 
