@@ -21,6 +21,15 @@ add_requires("s7 "..S7_VERSION, {system=false})
 target("s7") do
   add_packages ("s7")
   add_files("repl.c")
+  on_install(function (target)
+    if is_plat("linux", "macosx") then
+      os.cp("$(buildir)/$(plat)/$(arch)/$(mode)/s7", "$(buildir)/s7_$(plat)_$(arch)")
+    elseif is_plat("windows") then 
+      os.cp("$(buildir)/$(plat)/$(arch)/$(mode)/s7.exe", "$(buildir)/s7_$(plat)_$(arch).exe")
+    else
+      print("Unsupported platform!!!")
+    end
+  end)
 end
 
 target("plus.scm") do
