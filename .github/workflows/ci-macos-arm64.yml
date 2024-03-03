@@ -1,4 +1,4 @@
-name: Build on macOS 11
+name: Build on macOS arm64
 
 on:
   push:
@@ -9,7 +9,11 @@ on:
 
 jobs:
   macosbuild:
-    runs-on: macos-11
+    strategy:
+      matrix:
+        os: [macos-12]
+        arch: [arm64]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: xmake-io/github-action-setup-xmake@v1
         with:
@@ -23,3 +27,4 @@ jobs:
         run: xmake build --yes -vD s7
       - name: test
         run: xmake run --yes -vD plus.scm
+
