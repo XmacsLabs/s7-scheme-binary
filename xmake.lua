@@ -31,4 +31,11 @@ target("plus.scm") do
       os.exec(cmd)
     end)
   end
+  if is_plat("windows") then
+    on_run(function (target)
+      cmd = "$(buildir)/$(plat)/$(arch)/$(mode)/s7.exe " .. "tests/plus.scm"
+      print("> " .. cmd)
+      os.exec(cmd)
+    end)
+  end
 end
