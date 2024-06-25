@@ -30,11 +30,9 @@ stages:
         displayName: Build and Test
         gccVersion: '9.4'
         commands:
-          - apt-get update
-          - apt-get install -y software-properties-common 
-          - /usr/bin/add-apt-repository ppa:xmake-io/xmake
-          - apt-get update
-          - apt install xmake
+          - wget https://gitee.com/XmacsLabs/mogan/attach_files/1813514/download -O /tmp/xmake.deb
+          - sha1sum /tmp/xmake.deb | grep ac3629bd0fa66f179aef35dc00b7a1c89735651a
+          - apt install /tmp/xmake.deb
           - sed -i '/github\.com/d' xmake/packages/s/s7/xmake.lua
           - xmake repo -u
           - xmake config -vD --yes
