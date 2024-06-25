@@ -1,0 +1,51 @@
+version: '1.0'
+name: cd-linux
+displayName: cd-linux
+triggers:
+  trigger: auto
+variables:
+  XMAKE_MAIN_REPO: https://gitee.com/tboox/xmake-repo.git
+  XMAKE_BINARY_REPO: https://gitee.com/xmake-mirror/build-artifacts.git
+  XMAKE_ROOT: 'y'
+stages:
+  - name: build_and_test
+    displayName: build_and_test
+    strategy: fast
+    trigger: auto
+    executor: []
+    steps:
+      - step: build@gcc
+        name: build
+        displayName: Build and Test
+        gccVersion: '9.4'
+        commands:
+          - apt-get update
+          - apt-get install -y software-properties-common
+          - /usr/bin/add-apt-repository ppa:xmake-io/xmake
+          - apt-get update
+          - apt install xmake
+          - sed -i '/github\.com/d' xmake/packages/s/s7/xmake.lua
+          - xmake repo -u
+          - xmake config -vD --yes
+          - xmake b s7
+        artifacts:
+          - name: BUILD_ARTIFACT
+            path:
+              - build/linux/x86_64/release/s7
+        notify: []
+        strategy:
+          retry: '0'
+  - name: stage-3bd03e77
+    displayName: 上传构建产物
+    strategy: naturally
+    trigger: auto
+    executor: []
+    steps:
+      - step: publish@general_artifacts
+        name: publish_general_artifacts
+        displayName: 上传制品
+        dependArtifact: BUILD_ARTIFACT
+        artifactName: s7_ubuntu_focal
+        notify: []
+        strategy:
+          retry: '0'

@@ -35,6 +35,7 @@ stages:
           - /usr/bin/add-apt-repository ppa:xmake-io/xmake
           - apt-get update
           - apt install xmake
+          - sed -i '/github\.com/d' xmake/packages/s/s7/xmake.lua
           - xmake repo -u
           - xmake config -vD --yes
           - xmake b s7
