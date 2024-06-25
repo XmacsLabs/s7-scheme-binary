@@ -3,6 +3,10 @@ name: cd-linux
 displayName: cd-linux
 triggers:
   trigger: auto
+  push:
+    tags:
+      prefix:
+        - v
 variables:
   XMAKE_MAIN_REPO: https://gitee.com/tboox/xmake-repo.git
   XMAKE_BINARY_REPO: https://gitee.com/xmake-mirror/build-artifacts.git
@@ -36,7 +40,7 @@ stages:
         strategy:
           retry: '0'
   - name: stage-3bd03e77
-    displayName: 上传构建产物
+    displayName: 上传构建产物s7
     strategy: naturally
     trigger: auto
     executor: []
