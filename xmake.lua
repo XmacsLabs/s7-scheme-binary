@@ -15,7 +15,7 @@ set_project("s7-scheme-binary")
 
 add_repositories("mogan-repo xmake")
 
-local S7_VERSION = "20230413"
+local S7_VERSION = "20231115"
 add_requires("s7 "..S7_VERSION, {system=false})
 
 target("s7") do
